@@ -1,5 +1,5 @@
 (ns fractals.core
-  (:require [fractals.step :as step]
+  (:require [fractals.line :as line]
             [clojure.string :as str]
             [fractals.turtle :as turtle]
             [fractals.vector2 :as vector2])
@@ -83,10 +83,10 @@
   "Returns a svg line based on the given step"
   [s]
   (format "<line x1=\"%s\" y1=\"%s\" x2=\"%s\" y2=\"%s\" stroke-width=\"10\" stroke=\"black\"/>\n"
-                       (double (vector2/x (step/start s)))
-                       (double (vector2/y (step/start s)))
-                       (double (vector2/x (step/end s)))
-                       (double (vector2/y (step/end s)))))
+          (double (vector2/x (line/start s)))
+          (double (vector2/y (line/start s)))
+          (double (vector2/x (line/end s)))
+          (double (vector2/y (line/end s)))))
 
 (defn last-line
   "Returns the closing tag of a .svg file"
@@ -95,7 +95,7 @@
 (defn draw! [steps output-file]
   "Draws the given lines into the output file.
   WARNING: the impure side of the force relies within this parentheses"
-  (let [all-vectors (apply conj (for [s steps] (step/start s)) (for [s steps] (step/end s)))]
+  (let [all-vectors (apply conj (for [s steps] (line/start s)) (for [s steps] (line/end s)))]
     (do
       (spit output-file (first-line (vector2/min-vector-list all-vectors)
                                     (vector2/max-vector-list all-vectors)))

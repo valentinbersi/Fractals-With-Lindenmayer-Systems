@@ -1,6 +1,6 @@
 (ns fractals.turtle
   (:require [fractals.vector2 :as vector2])
-  (:require [fractals.step :as step]))
+  (:require [fractals.line :as line]))
 
 (defn create
   "[position angle]: Returns a turtle with the given position as its current position and its previous position, and the given angle
@@ -54,7 +54,7 @@
 
 (defn step
   "Returns the current step of the turtle (a step with its start on the previous position and its end on the current position"
-  [t] (step/create (previous-position t) (position t)))
+  [t] (line/create (previous-position t) (position t) 10))
 
 (defn moved?
   "Returns true if the given turtle's position differs from its previous position"
